@@ -1,0 +1,2 @@
+#labels eclipse,gef,gwt
+eclipse gef/emf on GWT released!

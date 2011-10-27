@@ -1,0 +1,60 @@
+		clear(log);
+		UMLModel root = UMLFactory.eINSTANCE.createModel();
+		root.setName("UMLModel");
+		org.eclipse.uml2.uml.Package p = UMLFactory.eINSTANCE.createPackage();
+		UMLClass c = UMLFactory.eINSTANCE.createClass();
+		org.eclipse.uml2.uml.Property a = UMLFactory.eINSTANCE.createProperty();
+		org.eclipse.uml2.uml.Operation o = UMLFactory.eINSTANCE
+				.createOperation();
+		p.getPackagedElements().add(c);
+		c.getOwnedAttributes().add(a);
+		c.getOwnedOperations().add(o);
+		a.setVisibility(VisibilityKind.PRIVATE_LITERAL);
+
+		root.getPackagedElements().add(p);
+		XMIResourceImpl resource = new XMIResourceImpl();
+		resource.getContents().add(root);
+		GWTOutputStream bs = new GWTOutputStream();
+		try {
+			HashMap options = new HashMap();
+			options.put(XMIResource.OPTION_ENCODING, "UTF-8");
+			resource.save(bs, options);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		println(log,
+				"--------Save UML object to xmi resource------------------");
+		println(log, new String(bs.toString()));
+
+		ResourceSetImpl rs = new ResourceSetImpl();
+		XMIResourceImpl r = new XMIResourceImpl();
+		rs.getResources().add(r);
+		r.getResourceSet().getPackageRegistry()
+				.put(UMLPackage.eINSTANCE.getNsURI(), UMLPackage.eINSTANCE);
+		r.getResourceSet().getPackageRegistry()
+				.put(EcorePackage.eINSTANCE.getNsURI(), EcorePackage.eINSTANCE);
+
+		ByteArrayInputStream is = new ByteArrayInputStream(bs.toString()
+				.getBytes());
+		try {
+			r.load(is, null);
+			if (r.getContents().size() > 0) {
+
+				println(log,
+						"--------load UML object from xmi resource------------------");
+				println(log, "Model: " + r.getContents().get(0) + "");
+				UMLModel root2 = (UMLModel) r.getContents().get(0);
+				org.eclipse.uml2.uml.Package p1 = (org.eclipse.uml2.uml.Package) root2
+						.getOwnedElements().get(0);
+				org.eclipse.uml2.uml.UMLClass c1 = (org.eclipse.uml2.uml.UMLClass) p1
+						.getOwnedElements().get(0);
+				println(log, "Package: " + p1 + "");
+				println(log, "Class: " + c1 + "");
+				println(log, "Property: " + c1.getOwnedAttributes().get(0) + "");
+				println(log, "Operation: " + c1.getOwnedOperations().get(0)
+						+ "");
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}

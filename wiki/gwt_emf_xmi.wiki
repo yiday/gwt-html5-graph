@@ -1,7 +1,7 @@
 #labels gwt,emf,xmi
 由于GWT对XML解析的支持并不够，以及并没有提供java对象的反射，因此EMF对象的序列化/反序列化是一个世界难题。
 
-幸运的是，gwt-html5-graph项目（http://code.google.com/p/gwt-html5-graph/）成功的解决了此问题。
+幸运的是，gwt-html5-graph项目（ http://code.google.com/p/gwt-html5-graph/ ）成功的解决了此问题。
 
 我们来首先看一下gwt-html5-graph中是如何将EMF对象存储为XMI的：
 

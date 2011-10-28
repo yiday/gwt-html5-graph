@@ -10,7 +10,7 @@
     2.首先我们先按照EMF通常的步骤将其存储到Resoure中：
 
     XMIResourceImpl resource = new XMIResourceImpl();
-    resource.getContents().add(company);
+   resource.getContents().add(company);
     GWTOutputStream bs = new GWTOutputStream();
     try {
     HashMap options = new HashMap();
@@ -30,7 +30,7 @@
 
     ResourceSetImpl rs = new ResourceSetImpl();
     XMIResourceImpl r = new XMIResourceImpl();
-    rs.getResources().add(r);
+  rs.getResources().add(r);
     r.getResourceSet().getPackageRegistry()
     .put(companyPackage.getNsURI(), companyPackage);
     ByteArrayInputStream is = new ByteArrayInputStream(bs.toString()

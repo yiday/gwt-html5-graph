@@ -30,11 +30,9 @@
 
     ResourceSetImpl rs = new ResourceSetImpl();
     XMIResourceImpl r = new XMIResourceImpl();
-  rs.getResources().add(r);
-    r.getResourceSet().getPackageRegistry()
-    .put(companyPackage.getNsURI(), companyPackage);
-    ByteArrayInputStream is = new ByteArrayInputStream(bs.toString()
-    .getBytes());
+    rs.getResources().add(r);      
+ r.getResourceSet().getPackageRegistry().put(companyPackage.getNsURI(), companyPackage);
+    ByteArrayInputStream is = new ByteArrayInputStream(bs.toString().getBytes());
     r.load(is, null);
 
     2.从资源中获取EMF对象：resource.getContents().get(0)

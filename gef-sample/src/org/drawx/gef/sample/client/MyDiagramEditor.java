@@ -5,17 +5,22 @@ import org.drawx.gef.sample.client.tool.example.model.MyConnectionModel;
 import org.drawx.gef.sample.client.tool.example.model.OrangeModel;
 import org.drawx.gef.ui.editor.DiagramEditorWithPalette;
 import org.drawx.gef.ui.editor.ToolPalette;
+import org.drawx.gef.ui.menu.MenuManager;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.requests.CreationFactory;
-import org.eclipse.swt.widgets.internal.menu.MenuManager;
+import org.eclipse.gef.ui.actions.DeleteAction;
+import org.eclipse.gef.ui.actions.SaveAction;
+import org.eclipse.gef.ui.actions.SelectAllAction;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.ui.IWorkbenchPart;
 
 import com.google.gwt.user.client.ui.Image;
 
 public class MyDiagramEditor extends DiagramEditorWithPalette{
 
-	public MyDiagramEditor(boolean b) {
-		super(b);
-	}
+//	public MyDiagramEditor() {
+//		super(null);
+//	}
 
 	@Override
 	public EditPartFactory getEditPartFactory() {
@@ -28,7 +33,8 @@ public class MyDiagramEditor extends DiagramEditorWithPalette{
 	}
 
 	@Override
-	public void initPalette(ToolPalette palette) {
+	public void initPalette(ToolPalette palette1) {
+		ToolPalette.Group palette = palette1.addGroup("Tools",true);
 		palette.addCreationTool("Create Node", new Image(Images.INSTANCE.newModel().getURL()), new CreationFactory() {
 
 			public Object getNewObject() {
@@ -58,7 +64,17 @@ public class MyDiagramEditor extends DiagramEditorWithPalette{
 
 	@Override
 	protected void createAppActions() {
-		
+
+		IAction action = new SelectAllAction(this);
+		this.getActionRegistry().registerAction(action);
+
+		action = new DeleteAction((IWorkbenchPart) this);
+		this.getActionRegistry().registerAction(action);
+		getSelectionActions().add(action.getId());
+
+		action = new SaveAction(this);
+		this.getActionRegistry().registerAction(action);
+		getPropertyActions().add(action.getId());
 	}
 
 	@Override

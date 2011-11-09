@@ -4,6 +4,7 @@ import org.drawx.gef.sample.client.tool.example.model.CanvasModel;
 import org.drawx.gef.sample.client.tool.example.model.MyConnectionModel;
 import org.drawx.gef.sample.client.tool.example.model.OrangeModel;
 import org.drawx.gef.ui.editor.DiagramEditorWithPalette;
+import org.drawx.gef.ui.graph.CanvasUtil;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionEndpointLocator;
 import org.eclipse.draw2d.Figure;
@@ -32,7 +33,6 @@ import org.eclipse.gef.ui.parts.ScrollingGraphicalViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.internal.swing.CanvasUtil;
 
 
 import com.google.gwt.core.client.EntryPoint;
@@ -73,9 +73,10 @@ public class Gef_sample implements EntryPoint {
 						"<p align=\"center\"><font size=\"6\">gwt-html5-graph GEF Sample</font></p>"), 5);
 		root.add(p);
 
-		createTab3(p);
-		createTab2(p);
+
 		createTab1(p);
+		createTab2(p);
+		createTab3(p);
 	}
 
 	private void show(String text)
@@ -195,7 +196,7 @@ public class Gef_sample implements EntryPoint {
 		canvas.setSize(500, 300);
 	}
 	private void createTab1(TabLayoutPanel p) {
-		DiagramEditorWithPalette editor = new MyDiagramEditor(true);
+		DiagramEditorWithPalette editor = new MyDiagramEditor();
 		p.add(editor.getWidget(), "Fill Canvas");
 	}
 

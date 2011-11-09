@@ -2,7 +2,9 @@ package org.drawx.gef.sample.client.tool.example.editpolicies;
 
 import org.drawx.gef.sample.client.tool.example.model.command.CreateCommand;
 import org.drawx.gef.sample.client.tool.example.model.command.MoveCommand;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
@@ -37,13 +39,46 @@ public class MyXYLayoutEditPolicy extends XYLayoutEditPolicy {
 	 */
 	protected Command getCreateCommand(CreateRequest request) {
 		CreateCommand command = new CreateCommand(getHost().getModel(),request.getNewObject());
-		Dimension size = request.getSize();
+		Rectangle constraint = (Rectangle) getConstraintFor(request);
+		if (constraint == null) {
+
+			constraint = (Rectangle) getConstraintFor(request.getLocation());
+			// System.out.println(constraint.getLocation());
+		}
+		Dimension size = constraint.getSize();//request.getSize();
 		if(size == null){
-			command.setLocation(request.getLocation());
+			command.setLocation(constraint.getLocation());
 		} else {
-			command.setLocation(new Rectangle(request.getLocation(),request.getSize()));
+			command.setLocation(new Rectangle(constraint.getLocation(),constraint.getSize()));
 		}
 		return command;
+	}
+	protected Object getConstraintFor(CreateRequest request) {
+		IFigure figure = getLayoutContainer();
+
+		Point where = request.getLocation().getCopy();
+		Dimension size = request.getSize();
+
+		figure.translateToRelative(where);
+		figure.translateFromParent(where);
+		try {
+			where.translate(getLayoutOrigin().getNegated());
+		} catch (Exception e) {
+
+			return new Rectangle(where, new Dimension(-1, -1));
+		}
+
+		if (size == null || size.isEmpty())
+			return getConstraintFor(where);
+		else {
+			// $TODO Probably should use PrecisionRectangle at some point
+			// instead of two
+			// geometrical objects
+			size = size.getCopy();
+			figure.translateToRelative(size);
+			figure.translateFromParent(size);
+			return getConstraintFor(new Rectangle(where, size));
+		}
 	}
 
 	/* (�� Javadoc)

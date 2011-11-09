@@ -1,11 +1,11 @@
 package org.drawx.gef.sample.client;
 
+import org.drawx.gef.ui.menu.IMenuManager;
+import org.drawx.gef.ui.menu.Menu;
 import org.eclipse.gef.ContextMenuProvider;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.swt.widgets.internal.menu.IMenuManager;
-import org.eclipse.swt.widgets.internal.menu.Menu;
 import org.eclipse.ui.actions.ActionFactory;
 
 
@@ -17,34 +17,34 @@ public class MyContextMenuProvider extends ContextMenuProvider{
 
 	@Override
 	public void buildContextMenu(IMenuManager menu) {
-		menu.addMenuItem(this.getActionRegistry().getAction(ActionFactory.UNDO.getId()));
-		menu.addMenuItem(this.getActionRegistry().getAction(ActionFactory.REDO.getId()));
+		menu.add(this.getActionRegistry().getAction(ActionFactory.UNDO.getId()));
+		menu.add(this.getActionRegistry().getAction(ActionFactory.REDO.getId()));
 		menu.addSeprator();
-		menu.addMenuItem(this.getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
-		menu.addMenuItem(this.getActionRegistry().getAction(ActionFactory.DELETE.getId()));
+		menu.add(this.getActionRegistry().getAction(ActionFactory.SELECT_ALL.getId()));
+		menu.add(this.getActionRegistry().getAction(ActionFactory.DELETE.getId()));
 		menu.addSeprator();
 		Menu m = menu.addMenu("Zoom");
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ZOOM_IN));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ZOOM_OUT));
 
 		
 		m = menu.addMenu("Match");
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.MATCH_HEIGHT));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.MATCH_WIDTH));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.MATCH_HEIGHT));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.MATCH_WIDTH));
 		
 		m = menu.addMenu("Align");
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_BOTTOM));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_LEFT));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_TOP));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_RIGHT));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_CENTER));
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_MIDDLE));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_BOTTOM));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_LEFT));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_TOP));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_RIGHT));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_CENTER));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.ALIGN_MIDDLE));
 		
 		m = menu.addMenu("Options");
-		m.addMenuItem(this.getActionRegistry().getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
+		m.add(this.getActionRegistry().getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
 		
 		menu.addSeprator();
-		menu.addMenuItem(this.getActionRegistry().getAction(ActionFactory.SAVE.getId()));
+		menu.add(this.getActionRegistry().getAction(ActionFactory.SAVE.getId()));
 //		menu.addMenuItem(new TestAction());
 //		menu.addMenuItem(new TestAction());
 //		menu.addMenuItem(new TestAction());
